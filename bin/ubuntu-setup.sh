@@ -1,5 +1,5 @@
 # Set environment
-source <(curl https://raw.githubusercontent.com/enewe101/webpack-react-boiler/master/.env)
+source <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/.env)
 
 # Enable firewall
 ufw default deny incoming
