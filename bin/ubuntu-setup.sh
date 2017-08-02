@@ -48,3 +48,10 @@ echo installing docker-compose
 curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
+# Clone the github repo.  Remove remotes from the repo so that you don't
+# commit to the boilerplate repo -- you need to make a repo for this project!
+git clone https://github.com/enewe101/webpack-react-boiler.git /home/appuser/app
+chown -R appuser:appuser /home/apuser/app
+cd /home/appuser/app
+git remote rm origin
+
