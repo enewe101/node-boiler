@@ -1,0 +1,55 @@
+There are various things you need to do now to complete the cloning and setup
+of your new web app.
+
+1) Create a new repository for this code.  This code has been severed from its
+	the repository it was cloned from (or, more precicely, from the remote that
+	holds the repository).  You should make your own github or bitbucket remote
+	repo for your project, and then set that as the remote for this code.
+	Don't commit work on your app to the webapp-boiler plate remote!
+
+2) Change the password for the appuser.  During setup, this is set to 'pass', 
+	but change it to something secret!
+
+2) Edit README, substituting the url that points to the file at
+	`bin/ubuntu-setup.sh` in your new repository.  Also edit
+	`bin/ubuntu-setup.sh` at the locations indicated by comments, to reflect 
+	your projects' information.  This will allow others to install your app
+	on ubuntu hosts easily (otherwise the README would direct them to install
+	the webapp-boilerplate!).
+
+3) Edit `.env.dev` and add your domain name and your project name to it.
+
+4) Create self-signed SSL certificates for development, and, once you have a 
+	domain name for your webapp, obtain SSL certificates signed by letsencrypt.
+
+5) The `.env.dev` file contains some secrets and passwords.  Of course, you'll
+	need different (truly secret) passwords for production.  When you start the
+	app in production mode, it will source those from a file called
+	`.env.prod.gpg`, which you'll need to make.  If you just want to do a quick
+	test-run in production mode, you can use the .env.prod.gpg file that is
+	provided, which has the passphrase 'app'.
+
+	To make a real `.env.prod.gpg`, run:
+
+		`bin/make-env.sh`.  
+
+	That script will copy over the non-secret environment variables in .env
+	(like PROJECT_NAME AND HOST_NAME) unchanged, but it will substitute strong
+	randomly generated passwords for the environment varibales that represent
+	passwords.  It will write these variables to `.env.prod.gpg`.  You'll need
+	to provide a passphrase which is used to unlock these environment variables
+	when the app starts up in production mode.
+
+	Don't commit your `.env.prod.gpg` file.  You can share it with people using 
+	ssh or an other secure exchange method.  Even though it is encrypted, you 
+	should also keep it restricted-access!
+
+6) The `.keys.prod.gpg` and `.keys.dev.gpg` files:
+
+	Any additional secrets you wish to associate to the app can be stored in 
+	.keys.prod.gpg (for production) and .keys.dev.gpg (for development).  
+	You could use this to store consumer keys for an OAuth-authenticated api 
+	for example.
+
+
+	

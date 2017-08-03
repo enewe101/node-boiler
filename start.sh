@@ -34,31 +34,34 @@ echo "Starting up $NODE_ENV environment"
 # Dev: source the .env file;  Prod: expect env to be supplied--check it.
 if [ "$NODE_ENV" = "development" ]; then
     source .env
+	source <(gpg -d .keys.dev.gpg)
 else
-    MISSED=0
-    if [ -z "$PROJ_NAME" ]; then echo "Need to set PROJ_NAME." && MISSED=1; fi
-    if [ -z "$USE_SSL" ]; then echo "Need to set USE_SSL." && MISSED=1; fi
-    if [ -z "$APP_DB_USER" ]; then echo "Need to set APP_DB_USER." && MISSED=1; fi
-    if [ -z "$APP_DB_PASS" ]; then echo "Need to set APP_DB_PASS." && MISSED=1; fi
-    if [ -z "$HOST" ]; then echo "Need to set HOST." && MISSED=1; fi
-    if [ -z "$HOST_USER" ]; then echo "Need to set HOST_USER." && MISSED=1; fi
-    if [ -z "$HOST_USER_PASS" ]; 
-        then echo "Need to set HOST_USER_PASS." && MISSED=1; fi
-    if [ -z "$MONGO_INITDB_ROOT_USERNAME" ]; then 
-        echo "Need to set MONGO_INITDB_ROOT_USERNAME." && MISSED=1;
-    fi
-    if [ -z "$MONGO_INITDB_ROOT_PASSWORD" ]; then 
-        echo "Need to set MONGO_INITDB_ROOT_PASSWORD." && MISSED=1;
-    fi
-    if [ $MISSED -eq 1 ]; then exit 1; fi
+	source <(gpg -d .env.prod.gpg)
+	source <(gpg -d .keys.prod.gpg)
 fi
+
+# Verify that environment varibles, needed by app services, are set.
+MISSED=0
+#if [ -z "$PROJ_NAME" ]; then echo "Need to set PROJ_NAME." && MISSED=1; fi
+if [ -z "$USE_SSL" ]; then echo "Need to set USE_SSL." && MISSED=1; fi
+#if [ -z "$CERT_PATH" ]; then echo "Need to set CERT_PATH." && MISSED=1; fi
+if [ -z "$APP_DB_USER" ]; then echo "Need to set APP_DB_USER." && MISSED=1; fi
+if [ -z "$APP_DB_PASS" ]; then echo "Need to set APP_DB_PASS." && MISSED=1; fi
+if [ -z "$HOST" ]; then echo "Need to set HOST." && MISSED=1; fi
+if [ -z "$MONGO_INITDB_ROOT_USERNAME" ]; then 
+	echo "Need to set MONGO_INITDB_ROOT_USERNAME." && MISSED=1;
+fi
+if [ -z "$MONGO_INITDB_ROOT_PASSWORD" ]; then 
+	echo "Need to set MONGO_INITDB_ROOT_PASSWORD." && MISSED=1;
+fi
+if [ $MISSED -eq 1 ]; then exit 1; fi
 
 # Notify whether SSL being used; if yes, ensure certificate-related files exist.
 if [ -z $USE_SSL ] || [ $USE_SSL -eq 0 ]; then
     echo "NO SSL"
 else
     echo "Using SSL"
-    CERT_PATH=/home/$HOST_USER/$PROJ_NAME/cert
+    CERT_PATH=/home/$HOST_USER/app/cert
     if [ ! -f $CERT_PATH/dhparam.pem ]; then
          echo "SSL: expected $CERT_PATH/dhparam.pem"; exit 1; fi
     if [ ! -f $CERT_PATH/fullchain.pem ]; then

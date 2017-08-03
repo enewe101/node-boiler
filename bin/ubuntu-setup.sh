@@ -51,7 +51,8 @@ chmod +x /usr/local/bin/docker-compose
 # Clone the github repo.  Remove remotes from the repo so that you don't
 # commit to the boilerplate repo -- you need to make a repo for this project!
 git clone https://github.com/enewe101/webpack-react-boiler.git /home/appuser/app
-chown -R appuser:appuser /home/apuser/app
-cd /home/appuser/app
+chown -R $HOST_USER:$HOST_USER /home/$HOST_USER/app
+cd /home/$HOST_USER/app
 git remote rm origin
+su appuser
 
