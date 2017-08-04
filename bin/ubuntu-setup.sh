@@ -1,5 +1,5 @@
 # Set environment
-source <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/.env.dev)
+source <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/.env.dev) # <--= CHANGE THIS
 
 # Enable firewall
 ufw default deny incoming
@@ -16,7 +16,7 @@ echo $HOST_USER:$HOST_USER_PASS | chpasswd
 usermod -aG sudo $HOST_USER
 
 # Copy some .vimrc into appuser to make development a bit easier
-wget https://raw.githubusercontent.com/enewe101/webpack-react-boiler/master/config/.vimrc -O /home/$HOST_USER/.vimrc
+wget https://raw.githubusercontent.com/enewe101/webpack-react-boiler/master/config/.vimrc -O /home/$HOST_USER/.vimrc  # <--= CHANGE THIS!
 
 # Install docker
 # Remove any old version
@@ -45,12 +45,12 @@ systemctl enable docker
 
 # Install docker-compose
 echo installing docker-compose
-curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose  
 chmod +x /usr/local/bin/docker-compose
 
 # Clone the github repo.  Remove remotes from the repo so that you don't
 # commit to the boilerplate repo -- you need to make a repo for this project!
-git clone https://github.com/enewe101/webapp-boiler.git /home/$HOST_USER/app
+git clone https://github.com/enewe101/webapp-boiler.git /home/$HOST_USER/app # <--= CHANGE THIS!
 chown -R $HOST_USER:$HOST_USER /home/$HOST_USER/app
 cd /home/$HOST_USER/app
 git remote rm origin

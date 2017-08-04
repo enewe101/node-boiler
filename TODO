@@ -1,17 +1,17 @@
 There are various things you need to do now to complete the cloning and setup
 of your new web app.
 
-1) Create a new repository for this code.  This code has been severed from its
-	the repository it was cloned from (or, more precicely, from the remote that
-	holds the repository).  You should make your own github or bitbucket remote
-	repo for your project, and then set that as the remote for this code.
-	Don't commit work on your app to the webapp-boiler plate remote!
+1) Create a new repository for your project.  You can't commit it to the
+	webapp-boiler repo! (actually that remote was removed to prevent you from
+	doing so accidentally!)
 
-2) Change the password for the appuser.  During setup, this is set to 'pass', 
-	but change it to something secret!
+2) Change the password for "appuser".  During setup, this is set to 'pass'.
 
-2) Edit README, substituting the url that points to the file at
-	`bin/ubuntu-setup.sh` in your new repository.  Also edit
+2) Edit README, so that the remote install command points to your new 
+	repository.
+
+3) Edit `bin/ubuntu-setup.sh`, in the places indicated.
+
 	`bin/ubuntu-setup.sh` at the locations indicated by comments, to reflect 
 	your projects' information.  This will allow others to install your app
 	on ubuntu hosts easily (otherwise the README would direct them to install
