@@ -1,6 +1,8 @@
 # Set environment
 source <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/.env.dev)
 
+env
+ 
 # Enable firewall
 ufw default deny incoming
 ufw default allow outgoing
