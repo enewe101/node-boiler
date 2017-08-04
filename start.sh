@@ -34,7 +34,7 @@ echo "Starting up $NODE_ENV environment"
 # Dev: source the .env file;  Prod: expect env to be supplied--check it.
 if [ "$NODE_ENV" = "development" ]; then
     source .env.dev
-	source <(gpg -d .keys.dev.gpg)
+	source .keys.dev
 else
 	source <(gpg -d .env.prod.gpg)
 	source <(gpg -d .keys.prod.gpg)
