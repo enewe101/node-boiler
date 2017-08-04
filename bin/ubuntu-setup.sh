@@ -1,8 +1,6 @@
 # Set environment
 source <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/.env.dev)
 
-env
- 
 # Enable firewall
 ufw default deny incoming
 ufw default allow outgoing
@@ -52,7 +50,7 @@ chmod +x /usr/local/bin/docker-compose
 
 # Clone the github repo.  Remove remotes from the repo so that you don't
 # commit to the boilerplate repo -- you need to make a repo for this project!
-git clone https://github.com/enewe101/webpack-react-boiler.git /home/appuser/app
+git clone https://github.com/enewe101/webapp-boiler.git /home/$HOST_USER/app
 chown -R $HOST_USER:$HOST_USER /home/$HOST_USER/app
 cd /home/$HOST_USER/app
 git remote rm origin
