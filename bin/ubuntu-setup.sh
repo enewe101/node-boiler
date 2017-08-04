@@ -54,5 +54,10 @@ git clone https://github.com/enewe101/webapp-boiler.git /home/$HOST_USER/app
 chown -R $HOST_USER:$HOST_USER /home/$HOST_USER/app
 cd /home/$HOST_USER/app
 git remote rm origin
-su appuser
+
+# Create self-signed certificate for SSL
+bin/self-sign-cert.sh
+
+# Drop into the non-root user
+su $HOST_USER
 
