@@ -16,28 +16,59 @@
 #   and then run this script.
 #
 
-# Default set up the development environment; --prod to chose production.
-# Figure out if the --prod arugment was set (remove it from args list if so)
-ARGS=""; IS_PROD=0
-for var in "$@"; do test "$var" != '--prod' && ARGS="$ARGS $var" || IS_PROD=1; done
+# Get the path to this script (regardless of current working dir).
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+# Was the --prod flag set? (remove it from the args if so.)
+ARGS=""; NODE_ENV=dev
+for var in "$@"; do test "$var" != '--prod' && ARGS="$ARGS $var" || ENV_MODE=prod; done
 ARGS=$(echo "$ARGS" | xargs)    # Trim whatespace around variables
 
-if [ $IS_PROD -eq 1 ]; then
-   export NODE_ENV=production
-   export APP_VOLUME_MAPPING=../dummy:/dummy
-else
-   export NODE_ENV=development
-   export APP_VOLUME_MAPPING=..:/app
-fi
-echo "Starting up $NODE_ENV environment"
+# Was the --stage flag set? (remove it from the args if so.)
+OLD_ARGS=$ARGS; ARGS=""
+for var in $OLD_ARGS; do test "$var" != '--stage' && ARGS="$ARGS $var" || ENV_MODE=stage; done
+ARGS=$(echo "$ARGS" | xargs)    # Trim whatespace around variables
 
-# Dev: source the .env file;  Prod: expect env to be supplied--check it.
-if [ "$NODE_ENV" = "development" ]; then
+# Was the --dev flag set? (remove it from the args if so.)
+OLD_ARGS=$ARGS; ARGS=""
+for var in $OLD_ARGS; do test "$var" != '--dev' && ARGS="$ARGS $var" || ENV_MODE=dev; done
+ARGS=$(echo "$ARGS" | xargs)    # Trim whatespace around variables
+
+# Based on what environment we're in (production, staging, development), we
+# need to set some environment variables, including secrets.
+if [ "$ENV_MODE" = "dev" ]; then
     source .env.dev
 	source .keys.dev
 else
-	source <(gpg -d .env.prod.gpg)
-	source <(gpg -d .keys.prod.gpg)
+	if [ "$ENV_MODE" = "stage" ]; then
+		source .env.dev
+		source .keys.dev
+		export HOST=$STAGE_HOST
+	else
+		source <(gpg -d .env.prod.gpg)
+		source <(gpg -d .keys.prod.gpg)
+		export HOST=$PROD_HOST
+	fi
+fi
+
+# Based on what environment we're in (production, staging, development), we
+# need to set the mapping for the app's code and we need to fill in a variable
+# in the nginx configuration.  We also want to export the environment to an
+# environment variable that node and node-based libraries are looking for.
+if [ "$ENV_MODE" = "prod" ]; then
+   export NODE_ENV=production
+   export APP_VOLUME_MAPPING=../dummy:/dummy
+   $SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template server_name=$HOST > $SCRIPTPATH/config/nginx-config 
+else
+   if [ "$ENV_MODE" = "stage" ]; then
+	   export NODE_ENV=staging
+	   export APP_VOLUME_MAPPING=..:/app
+	   $SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template server_name=$HOST > $SCRIPTPATH/config/nginx-config 
+   else
+	   export NODE_ENV=development
+	   export APP_VOLUME_MAPPING=..:/app
+	   $SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template server_name=localhost > $SCRIPTPATH/config/nginx-config
+   fi
 fi
 
 # Verify that environment varibles, needed by app services, are set.
@@ -61,7 +92,7 @@ if [ -z $USE_SSL ] || [ $USE_SSL -eq 0 ]; then
     echo "NO SSL"
 else
     echo "Using SSL"
-    CERT_PATH=/home/$HOST_USER/app/cert
+    CERT_PATH=$SCRIPTPATH/cert
     if [ ! -f $CERT_PATH/dhparam.pem ]; then
          echo "SSL: expected $CERT_PATH/dhparam.pem"; exit 1; fi
     if [ ! -f $CERT_PATH/fullchain.pem ]; then
@@ -75,9 +106,10 @@ fi
 for var in "$ARGS"; do 
     if [ "$var" = "--force-recreate" ]; then
         echo "removing images, volumes, and containers"
-        bin/docker-rm
+        bin/docker-rm &> /dev/null
     fi
 done
 
 # Now call docker-compose, and pass through all the arguments
-docker-compose -p mern -f docker/docker-compose.yml up $ARGS
+echo 'starting dockers...'
+docker-compose -p mern -f docker/docker-compose.yml up $ARGS 2> .build-err

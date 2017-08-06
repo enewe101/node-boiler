@@ -29,4 +29,9 @@ Differences between prod and dev
    mounts app files as a volume so code edits will be seen by the container
 
 
-
+Create self-signed cert for dev
+- needed to answer questions during certificate creation manually
+	-- can I get that to work non-interactively?
+- used the gist to map *.dev to localhost
+- had to accept the security exception in browsers
+- Will the dev certificate work now?

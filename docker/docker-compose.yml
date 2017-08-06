@@ -18,17 +18,17 @@ services:
       context: ../
       dockerfile: docker/node-dockerfile
       args:
-        - APP_DB_USER
-        - APP_DB_PASS
         - NODE_ENV
         - USE_SSL
         - HOST
-        - TWITTER_CONSUMER_KEY
-        - TWITTER_CONSUMER_SECRET
-        - TWITTER_ACCESS_TOKEN
-        - TWITTER_ACCESS_TOKEN_SECRET
-        - FACEBOOK_APP_ID
-        - FACEBOOK_APP_SECRET
+      #  - APP_DB_USER
+      #  - APP_DB_PASS
+      #  - TWITTER_CONSUMER_KEY
+      #  - TWITTER_CONSUMER_SECRET
+      #  - TWITTER_ACCESS_TOKEN
+      #  - TWITTER_ACCESS_TOKEN_SECRET
+      #  - FACEBOOK_APP_ID
+      #  - FACEBOOK_APP_SECRET
     ports:
       - 80:80
       - 443:443
@@ -47,11 +47,11 @@ services:
       - APP_DB_USER
       - APP_DB_PASS
     build:
-      args:
-        - MONGO_INITDB_ROOT_USERNAME
-        - MONGO_INITDB_ROOT_PASSWORD
-        - APP_DB_USER
-        - APP_DB_PASS
+      #args:
+      #  - MONGO_INITDB_ROOT_USERNAME
+      #  - MONGO_INITDB_ROOT_PASSWORD
+      #  - APP_DB_USER
+      #  - APP_DB_PASS
       context: ../
       dockerfile: docker/mongo-dockerfile
     ports:

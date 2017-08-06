@@ -1,7 +1,7 @@
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
-	server_name localhost; #aventamedia.com;
+	server_name {{server_name}}; #aventamedia.com;
 	return 301 https://$server_name$request_uri;
 }
 
@@ -28,7 +28,7 @@ server {
 	add_header X-Content-Type-Options nosniff;
 
 	ssl_dhparam /app/cert/dhparam.pem;
-	server_name localhost; # aventamedia.com;
+	server_name {{server_name}}; # aventamedia.com;
 
 	location ~ /static {
 		root /app;
@@ -51,4 +51,3 @@ server {
 	}
 
 }
-

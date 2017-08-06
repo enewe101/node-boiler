@@ -5,6 +5,8 @@
 .DS_Store
 .env.gpg
 .keys*
+.build-err
+*.pyc
 npm-debug.log
 node_modules
 client-build
