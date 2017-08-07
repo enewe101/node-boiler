@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import re
@@ -17,7 +17,7 @@ def fill_template(template, variables):
     for slot_name in matchers:
         try:
             template = matchers[slot_name].sub(variables[slot_name], template)
-        except KeyError, e:
+        except KeyError as e:
             raise UndefinedSlot(slot_name)
 
     return template
@@ -27,4 +27,4 @@ if __name__ == '__main__':
     template_path = sys.argv[1]
     variables = dict([v.split('=') for v in sys.argv[2:]])
     
-    print fill_template(open(template_path).read(), variables)
+    print(fill_template(open(template_path).read(), variables))
