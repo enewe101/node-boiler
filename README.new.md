@@ -8,7 +8,7 @@
 
         $ bin/mac-dev-localhost.sh
 
-4. Have a look at dev-cheatsheet.txt for a guide on starting up and
+4. Have a look at `dev-cheatsheet.txt` for a guide on starting up and
    managing the development environment.
 5. Start the development environment by doing 
 
