@@ -20,7 +20,7 @@
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 # Was the --prod flag set? (remove it from the args if so.)
-ARGS=""; NODE_ENV=dev
+ARGS=""; ENV_MODE=dev
 for var in "$@"; do test "$var" != '--prod' && ARGS="$ARGS $var" || ENV_MODE=prod; done
 ARGS=$(echo "$ARGS" | xargs)    # Trim whatespace around variables
 
@@ -58,18 +58,18 @@ fi
 if [ "$ENV_MODE" = "prod" ]; then
    export NODE_ENV=production
    export APP_VOLUME_MAPPING=../dummy:/dummy
-   $SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template server_name=$HOST > $SCRIPTPATH/config/nginx-config 
 else
    if [ "$ENV_MODE" = "stage" ]; then
 	   export NODE_ENV=staging
 	   export APP_VOLUME_MAPPING=..:/app
-	   $SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template server_name=$HOST > $SCRIPTPATH/config/nginx-config 
    else
 	   export NODE_ENV=development
 	   export APP_VOLUME_MAPPING=..:/app
-	   $SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template server_name=localhost > $SCRIPTPATH/config/nginx-config
    fi
 fi
+
+# Fill the hostname (domain) into the nginx config so internal redirects work
+$SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template server_name=$HOST > $SCRIPTPATH/config/nginx-config 
 
 # Verify that environment varibles, needed by app services, are set.
 MISSED=0
