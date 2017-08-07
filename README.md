@@ -31,9 +31,11 @@ of your new webapp.
 6) Make a self-signed certificate issued to your development domain name.  If
 	you've edited `.env.dev`, then all you need to do is run
 	bin/self-sign-cert.sh.  Commit the three files generated inside <proj>/cert
-	to your project's repo.  The develpment certificate isn't sensitive.  But
-	never commit a real certificate for the production server to the repo (the
-	certificate should be revoked immediately if you do).
+	to your project's repo.  You will need to force the commit because
+	.gitignore is configured to not track anythin uncer <proj>/cert.  The
+	develpment certificate isn't sensitive.  But never commit a real
+	certificate for the production server to the repo (the certificate should
+	be revoked immediately if you do).
 
 7) Fill in the needed info in .keys.dev.  You should get IDs and secrets for
 	communicating with Facebook, Twitter, and any other OAuth providers.  You

@@ -1,9 +1,9 @@
-# This script sets up the staging environment on an Ubuntu 16 host.
-export HOST=$STAGE_HOST
-
 # Set environment
 # TODO: change this url to point to your new repo
 source <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/.env.dev)
+
+# This script sets up the staging environment on an Ubuntu 16 host.
+export HOST=$STAGE_HOST
 
 # Enable firewall
 ufw default deny incoming
