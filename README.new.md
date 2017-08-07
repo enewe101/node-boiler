@@ -41,8 +41,10 @@
 
    You will need to provide a passphrase.  The secrets will be stored in 
    `.env.prod.gpg`.
+
 3. Obtain secrets from providers (Facebook, Twitter, Instagram, etc) and
-   encrypt the secrets and IDs into .keys.prod.gpg
+   encrypt the secrets and IDs into `.keys.prod.gpg`.
+
 4. Obtain an SSL certificate for the domain by running
 
         $ bin/letsencrypt.sh
@@ -50,7 +52,7 @@
    You may need to modify nginx's configuration and restart it to make the
    well-known file servable.  Be sure to copy the certificate and private
    key into the locations expected according to nginx's config.  Also, be
-   sure to create a diffie hellman group, if not already done by that 
+   sure to create a Diffie Hellman group, if not already done by that 
    script.
 
 5. Start the production environment by doing 
