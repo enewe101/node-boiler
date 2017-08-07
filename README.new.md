@@ -31,6 +31,7 @@
 
 1. Run this command on the target machine:
 
+
         $ bash <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/bin/ubuntu-setup.sh)
 
 2. Make secrets for authentication between services of the app by running
