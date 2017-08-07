@@ -7,44 +7,42 @@ of your new webapp.
 		$ git remote add origin <uri for new repo>
 		$ git push -u origin master
 
-2) The current README pertains to making a new project from the boiler plate.  
-	But now, you want the README to tell other developers how to clone
-	your project and get their development environment up and running.  You
-	also want it to explain how to setup the staging and production
-	environments.  Edit the contents of `README.new.md` to to reflect that, and
-	then move it to `README.md`.
+2) The README you are currently reading pertains to making a new project from
+	the boiler plate.  But now, you want the README to tell other developers
+	how to clone your project and get their development environment up and
+	running.  You also want it to explain how to setup the staging and
+	production environments.  Replace the `README.md` that you are currently
+	reading with `README.new.md`.  Edit that file to include the github uri's
+	for your new repo.
 
-4) Edit `bin/ubuntu-setup.sh`, in the places indicated.
-	`bin/ubuntu-setup.sh` at the locations indicated by comments, to reflect 
-	your projects' information.  This simplifies setting up the staging
-	environment on ubuntu boxes.
+4) Edit `bin/ubuntu-setup.sh`, in the places indicated -- Look for "TODO"
+	comments.  This script is used to set up the staging and production
+	environments (on ubuntu boxes).
 
-5) Edit `.env.dev` and add your domain name and your project name to it.  Note
-	that your domain name should be your desired production domain name, but
-	with .dev as the TLD.
+5) Edit `.env.dev` to reflect your project's name and your domain name.  There
+	are three versions of your domain name: 
+    1. your actual domain name, which should resolve to your production server;
+    2. your development domain name, which should be like your production
+	   domain name, but with the TLD changed to `dev` (e.g. example.com ->
+       example.dev); and
+    3. your staging domain name, which should be a subdomain of your production
+	   domain name, e.g. staging.example.com.
 
-7) Make a self-signed certificate issued to `<your domain>.dev`
-	(This is based on what you entered into `.env.dev` as `HOST`.
+6) Make a self-signed certificate issued to your development domain name.  If
+	you've edited `.env.dev`, then all you need to do is run
+	bin/self-sign-cert.sh.  Commit the three files generated inside <proj>/cert
+	to your project's repo.  The develpment certificate isn't sensitive.  But
+	never commit a real certificate for the production server to the repo (the
+	certificate should be revoked immediately if you do).
 
-7) Add the contents of <path-to-project>/cert to the repo.  This contains the
-	SSL certificate for development, which is not sensitive. (Never add a
-	certificate destined to be used in production to the repo!)
+7) Fill in the needed info in .keys.dev.  You should get IDs and secrets for
+	communicating with Facebook, Twitter, and any other OAuth providers.  You
+	should obtain one set of credentials for your production server, and one set
+	for your development and stagin environments.  Both should be considered
+	sensitive, and not committed to the repo.  However, you will have to 
+	distribute the development credentials to your developers.  The production
+	credentials should only every be kept in encrypted form on
+	access-restricted systems.
 
-5) Fill in the needed info in .keys.dev.  This will allow your app to
-
-	communicate with Facebook, Twitter, and Instagram.  To do this, you will 
-	need to create accounts with each of those providers for your new app.
-	Those providers will want to know your domain name -- you need enter your
-	domain name with `.dev` as the TLD.  
-
-	(For production, you'll need to make a separate set of keys that are bound
-	to your true domain name, with the desired TLD.)
-
-	Do not add .keys.dev to your repository.  Consider this to be a sensitive
-	secret, because abuse of those keys would hurt your reputation with the
-	providers.  Distribute .keys.dev separately to your developpers over
-	secure communication.  You can always ask the providers to reset secrets if
-	you suspect compromise, and then disseminate the new secrets to your 
-	developers.
-
-6) Follow the steps to setup your development environment.
+8) Next, follow the steps in README.new.md to setup a development, staging, or
+	production environment.
