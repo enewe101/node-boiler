@@ -17,7 +17,9 @@
 **To setup a staging environment on a new machine do:**
 
 1. Run this command on the target machine:
-	bash <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/bin/ubuntu-setup.sh)
+
+        $ bash <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/bin/ubuntu-setup.sh)
+
 2. Ensure that DNS lookup of the hostname assigned to the STAGE\_HOST 
 	variable in `.env.dev` will point to the staging server.
 2. Have a look at the dev-cheatsheet.txt for a guid on starting up and
@@ -30,7 +32,6 @@
 **To start production do:**
 
 1. Run this command on the target machine:
-
 
         $ bash <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/bin/ubuntu-setup.sh)
 
