@@ -20,10 +20,24 @@
 
         $ bash <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/bin/ubuntu-setup.sh)
 
-2. Ensure that DNS lookup of the hostname assigned to the STAGE\_HOST 
-	variable in `.env.dev` will point to the staging server.
-2. Have a look at the dev-cheatsheet.txt for a guid on starting up and
-   managing the development environment.
+2. Obtain your domain name, and ensure that the subdomain at which your staging
+   server will reside (as indicated in by the STAGE\_HOST variable in 
+   `.env.dev`) is mapped to your staging server's IP address.
+
+3. If you haven't already done so, obtain secrets from providers (Facebook,
+   Twitter, Instagram, etc) to be used for dev and stagin, and put them into 
+   `.keys.dev`.
+
+4. Obtain an SSL certificate for your staging subdomain by running
+
+        $ bin/letsencrypt.sh
+
+   You may need to modify nginx's configuration and restart it to make the
+   well-known file servable.  Be sure to copy the certificate and private
+   key into the locations expected according to nginx's config.  Also, be
+   sure to create a Diffie Hellman group, if not already done by that 
+   script.
+
 3. Start the staging environment by doing 
 
         $ ./start.sh --stage
@@ -41,6 +55,9 @@
 
    You will need to provide a passphrase.  The secrets will be stored in 
    `.env.prod.gpg`.
+
+2. Obtain your domain name (as indicated in by the STAGE\_HOST variable in 
+   `.env.dev`), and ensure it is mapped to your staging server's IP address.
 
 3. Obtain secrets from providers (Facebook, Twitter, Instagram, etc) and
    encrypt the secrets and IDs into `.keys.prod.gpg`.
