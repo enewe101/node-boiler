@@ -13,4 +13,4 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 # Copy the certificate into the /app dir.  This copies the cert file to the
 # host, since /app is a mapped volume
 cp /etc/letsencrypt/live/$HOST/* /app/cert
-cp /etc/ssl/certs/dhparam.pem
+cp /etc/ssl/certs/dhparam.pem /app/cert
