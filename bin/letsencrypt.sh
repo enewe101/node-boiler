@@ -1,5 +1,9 @@
 # Install dependencies -- SSL/TLS cert management
 
+# First, move the old certificate if any 
+mkdir -p /app/cert/old &> /dev/null
+mv /app/cert/* /app/cert/old &> /dev/null
+
 # Get a certificate
 certbot certonly --webroot --webroot-path=/app -d $HOST
 
@@ -8,6 +12,5 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 # Copy the certificate into the /app dir.  This copies the cert file to the
 # host, since /app is a mapped volume
-mkdir /app/cert
-cp /etc/letsencrypt/archive/$HOST/* /app/cert
+cp /etc/letsencrypt/live/$HOST/* /app/cert
 cp /etc/ssl/certs/dhparam.pem
