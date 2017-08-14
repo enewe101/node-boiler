@@ -26,17 +26,37 @@ export class Form extends React.Component {
   }
 
   setValueAtPath(obj, path, key, val) {
-    path = path.split('.');
+	// `path` defines the series of keys that are needed to key into obj to
+	// find the "sub-object" into which we should store val at the key `key` of
+	// that sub-object. If path is undefined, it means we should store `val`
+	// directly in `obj` at `key`.
+	if(!path) {
+		path = [];
+	} else {
+		path = path.split('.');
+	}
+
+	// Key into `obj`, following path, to obtain the appropriate "sub-object".
     let pointer = obj;
     for(let i=0; i<path.length; i++) {
       pointer = pointer[path[i]];
     }
+
+	// Set `val` at `key` of the sub-object (which could be `obj` itself).
     pointer[key] = val
   }
 
-  getValueAtPath(obj, path) {
-    path = path.split('.');
+  getValueAtPath(obj, path, name) {
+
+	if(!path) {
+		path = [name];
+	} else {
+		path = path.split('.');
+		path.push(name);
+	}
+
     let pointer = obj;
+
     for(let i=0; i<path.length; i++) {
       pointer = pointer[path[i]];
     }
@@ -45,7 +65,7 @@ export class Form extends React.Component {
 
   getValue(name) {
     return this.getValueAtPath(
-     this.props.scope.state, this.props.path + '.' + name
+     this.props.scope.state, this.props.path, name
     );
   }
 
@@ -68,7 +88,7 @@ export class Form extends React.Component {
     if(this.props.onChange) {
       this.props.onChange(e)
     }
-  }
+  };
 
   render() {
 
@@ -91,22 +111,14 @@ export class Form extends React.Component {
             onChange: this.handleInputChange
           });
         }
-        // Don't bind anything, cause the input had "name"
+        // Don't bind anything, cause the input had no "name"
         return child;
       }
     );
 
-    return (
-      <form>
-        {React.Children.map(
-            this.props.children, child => 
-            React.cloneElement(child, {
-              value: this.getValue(child.props.name),
-              onChange: this.handleInputChange
-            })
-        )}
-      </form>
-    );
+	// Place the form with the bound children.
+    return <form onSubmit={this.props.onSubmit}>{children}</form>;
+
   }
 }
 

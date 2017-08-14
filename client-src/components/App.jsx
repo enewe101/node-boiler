@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import facebookUserStatusService from '../services/facebookUserStatusService';
-import documentService from '../services/api'
+import {documentService} from '../services/api'
 import { Form, SchemaForm } from './Form'
 import documentSchema from '../../server/models/Document_'
 import fetchit from '../services/fetchit'
@@ -75,9 +75,13 @@ class App extends React.Component {
 	}
 
   getDocuments = () => {
-    documentService.find({}).then(json => {
-      console.log(json);
-    });
+    documentService.find({})
+	  .then(json => {
+	    console.log(json);
+	  })
+	  .catch(e => {
+		console.log('somethign went wrong');
+	  })
   }
 
   postDoc = (e) => {

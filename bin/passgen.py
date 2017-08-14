@@ -1,4 +1,28 @@
 #!/usr/bin/env python
+#
+# Substitutes all instances of "secret" in a template file with a strong 
+# password.
+#
+# Basic Usage:
+#
+#     $ ./passgen.py template-file [password-length] > out-file
+#
+#     template-file: path to a file serving as a template.  The contents of
+#        that file will be read in, and instances of the word "secret" will be
+#        replaced with a strong password (each instance gets a distinct
+#        password).
+#
+#     password-length: length of the passwords (number of characters) to be
+#        generated.
+# 
+# Recommended usage: 
+#
+#     Combine this with encryption so that passwords never reach the filesystem
+#     in cleartext:
+#
+#     $ ./passgen.py template-file [password-length] | gpg -co out-path
+#
+
 
 import re
 import os

@@ -13,5 +13,5 @@ app.use('/', router);
 app.listen(port)
 
 // Print a message indicating readiness.
-console.log(`point browser to http://localhost:${port}`)
+console.log('point browser to https://' + process.env.HOST)
 

@@ -1,5 +1,6 @@
 "use strict";
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 const auth_string = process.env.APP_DB_USER + ':' + process.env.APP_DB_PASS;
 const mongo_connect_url = 'mongodb://' + auth_string + '@mongodb:27017/react';

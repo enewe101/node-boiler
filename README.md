@@ -30,14 +30,14 @@ of your new webapp.
 
 6) Make a self-signed certificate issued to your development domain name.  If
 	you've edited `.env.dev`, then all you need to do is run
-	bin/self-sign-cert.sh.  Commit the three files generated inside <proj>/cert
-	to your project's repo.  You will need to force the commit because
-	.gitignore is configured to not track anythin uncer <proj>/cert.  The
-	develpment certificate isn't sensitive.  But never commit a real
-	certificate for the production server to the repo (the certificate should
-	be revoked immediately if you do).
+	`bin/self-sign-cert.sh`.  Commit the three files generated inside
+	`<proj>/cert` to your project's repo.  You will need to force the commit
+	because .gitignore is configured to not track anythin uncer `<proj>/cert`.
+	The develpment certificate isn't sensitive.  But never commit a real
+	certificate for the production server to the repo (the certificate should be
+	revoked immediately if you do).
 
-7) Fill in the needed info in .keys.dev.  You should get IDs and secrets for
+7) Fill in the needed info in `.keys.dev`.  You should get IDs and secrets for
 	communicating with Facebook, Twitter, and any other OAuth providers.  You
 	should obtain one set of credentials for your production server, and one set
 	for your development and stagin environments.  Both should be considered
@@ -46,5 +46,5 @@ of your new webapp.
 	credentials should only every be kept in encrypted form on
 	access-restricted systems.
 
-8) Next, follow the steps in README.new.md to setup a development, staging, or
-	production environment.
+8) Next, follow the steps in `README.new.md` to setup a development, staging,
+	or production environment.

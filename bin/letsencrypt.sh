@@ -14,3 +14,6 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 # host, since /app is a mapped volume
 cp /etc/letsencrypt/live/$HOST/* /app/cert
 cp /etc/ssl/certs/dhparam.pem /app/cert
+
+# Finally, restart nginx so that it reads in the new certificate
+/etc/init.d/nginx restart
