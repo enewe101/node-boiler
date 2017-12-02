@@ -1,16 +1,10 @@
 
-left off: need to make certificates get copied into the correct locationon the
-	nginx container.  Finish getting ssl working.
+How can I separate the mongodb, nginx, and node dockers, but still make it easy
+to configure communication between them?
 
-[] Need to stop the fact that docker opens port to mongodb
 [] Eliminate evn variables after containers are fully running
 [] Make non-root user within dockers
 
-
-SSL/TLS Certificate:
-~~~~~~~~~~~~~~~~~~~~
-location of ssl/tls cert: /etc/letsencrypt/live/aventamedia.com/fullchain.pem
-cert expiry: 2017-10-16
 
 LOCATION OF DIFFIE-HELMAN GROUP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,9 +23,3 @@ Differences between prod and dev
    mounts app files as a volume so code edits will be seen by the container
 
 
-Create self-signed cert for dev
-- needed to answer questions during certificate creation manually
-	-- can I get that to work non-interactively?
-- used the gist to map *.dev to localhost
-- had to accept the security exception in browsers
-- Will the dev certificate work now?
