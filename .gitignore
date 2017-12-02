@@ -15,3 +15,5 @@ dump
 cert
 log
 del
+mongodata
+config/nginx-config

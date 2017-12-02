@@ -1,3 +1,3 @@
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
-$SCRIPT_PATH/self-sign-cert.sh
-$SCRIPT_PATH/mac-dev-localhost.sh
+$SCRIPTPATH/self-sign-cert.sh
+$SCRIPTPATH/mac-dev-localhost.sh
