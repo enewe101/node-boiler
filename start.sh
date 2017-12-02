@@ -69,7 +69,12 @@ else
 fi
 
 # Fill the hostname (domain) into the nginx config so internal redirects work
-$SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template server_name=$HOST > $SCRIPTPATH/config/nginx-config 
+if [ "$ENV_MODE" = "dev" ]; then
+	export CERT_PATH=/app/cert/
+else
+	export CERT_PATH=/etc/letsencrypt/live/$HOST/;
+fi
+$SCRIPTPATH/bin/fill_template.py $SCRIPTPATH/config/nginx-config-template cert_path=$CERT_PATH server_name=$HOST > $SCRIPTPATH/config/nginx-config 
 
 # Verify that environment varibles, needed by app services, are set.
 MISSED=0
@@ -88,18 +93,18 @@ fi
 if [ $MISSED -eq 1 ]; then exit 1; fi
 
 # Notify whether SSL being used; if yes, ensure certificate-related files exist.
-if [ -z $USE_SSL ] || [ $USE_SSL -eq 0 ]; then
-    echo "NO SSL"
-else
-    echo "Using SSL"
-    CERT_PATH=$SCRIPTPATH/cert
-    if [ ! -f $CERT_PATH/dhparam.pem ]; then
-         echo "SSL: expected $CERT_PATH/dhparam.pem"; exit 1; fi
-    if [ ! -f $CERT_PATH/fullchain.pem ]; then
-        echo "SSL: expected $CERT_PATH/fullchain.pem"; exit 1; fi
-    if [ ! -f $CERT_PATH/privkey.pem ]; then
-        echo "SSL: expected $CERT_PATH/privkey.pem"; exit 1; fi
-fi
+#if [ -z $USE_SSL ] || [ $USE_SSL -eq 0 ]; then
+#    echo "NO SSL"
+#else
+#    echo "Using SSL"
+#    CERT_PATH=$SCRIPTPATH/cert
+#    if [ ! -f $CERT_PATH/dhparam.pem ]; then
+#         echo "SSL: expected $CERT_PATH/dhparam.pem"; exit 1; fi
+#    if [ ! -f $CERT_PATH/fullchain.pem ]; then
+#        echo "SSL: expected $CERT_PATH/fullchain.pem"; exit 1; fi
+#    if [ ! -f $CERT_PATH/privkey.pem ]; then
+#        echo "SSL: expected $CERT_PATH/privkey.pem"; exit 1; fi
+#fi
 
 # Figure out if --force-recreate was included as an arg.  If so, remove all
 # images, volumes, and containers
