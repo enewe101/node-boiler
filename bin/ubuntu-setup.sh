@@ -21,7 +21,7 @@ usermod -aG sudo $HOST_USER
 
 # Copy some .vimrc into appuser to make development a bit easier
 # TODO: change this url to point to your new repo
-wget https://raw.githubusercontent.com/enewe101/webpack-react-boiler/master/config/.vimrc -O /home/$HOST_USER/.vimrc
+wget https://raw.githubusercontent.com/enewe101/webapp-boiler/master/config/.vimrc -O /home/$HOST_USER/.vimrc
 
 # Install docker
 # Remove any old version
