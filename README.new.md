@@ -1,6 +1,6 @@
 **To start developing on a Mac:**
 
-1. Clone this repo (you've probably already done that)
+1. Clone this repo.
 2. Install docker community edition and docker-compose.  You install them
    together because docker-compose is bundled in with docker community edition 
    on Mac
