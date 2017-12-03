@@ -1,20 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import facebookUserStatusService from '../services/facebookUserStatusService';
+// import facebookUserStatusService from '../services/facebookUserStatusService';
 import {documentService} from '../services/api'
 import { Form, SchemaForm } from './Form'
-import documentSchema from '../../server/models/Document_'
+//import documentSchema from '../../server/models/Document.js'
 import fetchit from '../services/fetchit'
+
+
+
 class App extends React.Component {
 
   constructor(props) {
     super(props);
 
-    let blankDocument = {};
-    let schemaKeys = Object.keys(documentSchema);
-    for(let i=0; i<schemaKeys.length; i++){
-      blankDocument[schemaKeys[i]] = '';
-    }
+    let blankDocument = {
+	  platformId: '',   // Id for doc on original platform
+	  text: '',       
+	  title: '',
+	  platform: '',
+	  publishedAt: '',    // When doc was published on original platform
+	  createdAt: '', // When doc was added to this app
+	  author: '', // Reference to author by platform Id
+	  hearts: '',       // favourites, likes
+	  shares: '',       // shares, retweets
+	  score: '',        // karma
+	  replies: [],  // replies, by platform Id
+	  inReplyTo: '',  // parent's platform Id (if reply)
+	};
 
     this.state = {
       todos: [['thing one', true], ['thing two', false]],
@@ -25,7 +37,7 @@ class App extends React.Component {
       'deeper':{'document':blankDocument, 'test':'yo'},
       'documents': []
     }
-    facebookUserStatusService.getUserStatus(this.handleUserStatusChange);
+    //facebookUserStatusService.getUserStatus(this.handleUserStatusChange);
   }
 
   handleUserStatusChange = response => {
@@ -35,22 +47,21 @@ class App extends React.Component {
   }
 
   fbLogout = () => {
-    facebookUserStatusService.logout(this.handleUserStatusChange);
+    //facebookUserStatusService.logout(this.handleUserStatusChange);
   }
 
-
   fbLogin = () => {
-    facebookUserStatusService.login(this.handleUserStatusChange);
+    //facebookUserStatusService.login(this.handleUserStatusChange);
   }
 
   fbCheckStatus = () => {
-    facebookUserStatusService._refreshUserStatus();
-    facebookUserStatusService.getUserStatus(
-        this.handleUserStatusChange, true, false);
+    //facebookUserStatusService._refreshUserStatus();
+    //facebookUserStatusService.getUserStatus(
+    //    this.handleUserStatusChange, true, false);
   }
 
   fbRevoke = () => {
-    facebookUserStatusService.revoke(this.handleUserStatusChange);
+    //facebookUserStatusService.revoke(this.handleUserStatusChange);
   }
 
   instagramAuth = () => {
@@ -172,7 +183,7 @@ class App extends React.Component {
         </Form>
 
         <SchemaForm key="" path="deeper.document" scope={this} 
-          schema={documentSchema}>
+          schema={this.state.deeper.document}>
           <input type="submit" onClick={this.postDoc} />
         </SchemaForm>
 
@@ -180,5 +191,7 @@ class App extends React.Component {
     )
   }
 }
+
+
 
 export default App;

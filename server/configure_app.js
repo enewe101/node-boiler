@@ -69,7 +69,7 @@ function add_dev_middleware(app) {
 	app.use(webpackDevMiddleware(compiler, {
 	  hot: true,
 	  filename: 'bundle.js',
-	  publicPath: '/',
+	  publicPath: '/hot',
 	  stats: {
 		colors: true,
 	  },

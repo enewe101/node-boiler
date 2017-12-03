@@ -1,6 +1,16 @@
+Right now I can't include mongoose schemas into the sever (they are defined on
+the server).  It would be useful to be able to do so for creating forms.
+- Instead I'm using a POJO that mirrors the schema, but that's not DRY
+- currently all lines containing "facebookUserStatusService" are commented out
+	to avoid the error message in the console that probably results from not
+	having FB credentials available.  This should be easy to turn on, but not
+	on by default.
 
 How can I separate the mongodb, nginx, and node dockers, but still make it easy
 to configure communication between them?
+
+How can I fix mapping to source so that errors in the console can be traced
+back to their source?
 
 [] Eliminate evn variables after containers are fully running
 [] Make non-root user within dockers

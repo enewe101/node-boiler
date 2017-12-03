@@ -1,4 +1,4 @@
-require('es6-promise').polyfill();
+//require('es6-promise').polyfill();
 import ReactDOM from 'react-dom';
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
@@ -9,16 +9,16 @@ import Welcome from './components/Welcome.jsx';
 import Signup from './components/Signup.jsx';
 
 
+// Note: '/' gets redirected to '/app'
 const renderApp = () => {
   ReactDOM.render(
 	<div>
-		<div>yo</div>
 		<BrowserRouter>
 		  <div>
-			<Route exact path='/app/' component={Welcome} />
-			<Route exact path='/app/dash' component={App} />
+			<Route exact path='/app' component={Welcome} />
 			<Route exact path='/app/login' component={Login} />
 			<Route exact path='/app/signup' component={Signup} />
+			<Route exact path='/app/app' component={App} />
 		  </div>
 		</BrowserRouter>
 	</div>,
@@ -28,7 +28,7 @@ const renderApp = () => {
 
 renderApp();
 
-
 if (module.hot) {
   module.hot.accept();
 }
+

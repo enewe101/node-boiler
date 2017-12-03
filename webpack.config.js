@@ -15,10 +15,11 @@ module.exports = {
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     './index.js'
   ],
+
   output: {
     path: path.join(__dirname, './client-build'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/hot'
   },
 
   module: {

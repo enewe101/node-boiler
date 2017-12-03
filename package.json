@@ -30,7 +30,7 @@
     "express-session": "^1.14.1",
     "fetch-ie8": "^1.5.0",
     "html-webpack-plugin": "^2.29.0",
-    "mongoose": "^4.11.1",
+    "mongoose": "^4.13.6",
     "mustache-express": "^1.2.5",
     "oauth": "^0.9.14",
     "react": "^15.3.2",

@@ -3,12 +3,12 @@
 1. Clone this repo.
 2. Install docker community edition and docker-compose.  You install them
    together because docker-compose is bundled in with docker community edition 
-   on Mac
+   on Mac.
 
 3. Map requests issued to `https?://*.dev` to localhost, and create a
    self-signed certificate.  
 
-		$ bin/mac-setup.sh
+		$ bin/mac-setup.sh # (Is fine: "Error: dnsmasq ... already installed")
 
 4. Have a look at `dev-cheatsheet.txt` for a guide on starting up and
    managing the development environment.
