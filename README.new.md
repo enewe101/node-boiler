@@ -3,15 +3,16 @@
 1. Clone this repo.
 2. Install docker community edition and docker-compose (On mac,
    docker-compose is bundled in with docker community edition)
-3. Map requests issued to `https?://*.dev` to localhost.  On mac, you can
-   do this by running 
+3. Map requests issued to `https?://*.dev` to localhost, and create a
+   self-signed certificate.  On mac, you can do this by running 
 
-        $ bin/mac-dev-localhost.sh
+        $ bin/mac-setup.sh
 
 4. Have a look at `dev-cheatsheet.txt` for a guide on starting up and
    managing the development environment.
 5. Start the development environment by doing 
 
+		$ source .env.dev
 		$ ./start.sh
 
 **To setup a staging environment on a new machine do:**
