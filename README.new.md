@@ -1,24 +1,28 @@
-**To start developing:**
+**To start developing on a Mac:**
 
-1. Clone this repo.
-2. Install docker community edition and docker-compose (On mac,
-   docker-compose is bundled in with docker community edition)
+1. Clone this repo (you've probably already done that)
+2. Install docker community edition and docker-compose.  You install them
+   together because docker-compose is bundled in with docker community edition 
+   on Mac
+
 3. Map requests issued to `https?://*.dev` to localhost, and create a
-   self-signed certificate.  On mac, you can do this by running 
+   self-signed certificate.  
 
-        $ bin/mac-setup.sh
+		$ bin/mac-setup.sh
 
 4. Have a look at `dev-cheatsheet.txt` for a guide on starting up and
    managing the development environment.
+
 5. Start the development environment by doing 
 
 		$ source .env.dev
 		$ ./start.sh
 
-**To setup a staging environment on a new machine do:**
+**To setup a staging environment on a new Ubuntu virtual machine do:**
 
 1. Run this command on the target machine:
 
+		#TODO: change this to point to the new repo for this project
         $ bash <(curl https://raw.githubusercontent.com/enewe101/webapp-boiler/master/bin/ubuntu-setup.sh)
 
 2. Obtain your domain name, and ensure that the subdomain at which your staging
@@ -26,7 +30,7 @@
    `.env.dev`) is mapped to your staging server's IP address.
 
 3. If you haven't already done so, obtain secrets from providers (Facebook,
-   Twitter, Instagram, etc) to be used for dev and stagin, and put them into 
+   Twitter, Instagram, etc) to be used for dev and staging, and put them into 
    `.keys.dev`.
 
 4. Obtain an SSL certificate for your staging subdomain by running
