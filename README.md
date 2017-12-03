@@ -1,23 +1,20 @@
-There are various things you need to do now to complete the cloning and setup
-of your new webapp.
+This repository contains a boiler plate MERN app.  You can clone it and use it
+as a starting point for your new app.  The first thing you'll need to do after
+cloning it is disassociate it from the current git repo, and associate it to a
+new repo for your new app!
 
-1) Create a new repository for your project.  Add a remote that points to that
-	new repository:
+Follow these steps to configure this repo to be the starting point for your new
+app:
 
+1) Associate this to a new repo for your project:
+
+		$ git remote rm origin
 		$ git remote add origin <uri for new repo>
 		$ git push -u origin master
 
-2) The README you are currently reading pertains to making a new project from
-	the boiler plate.  But now, you want the README to tell other developers
-	how to clone your project and get their development environment up and
-	running.  You also want it to explain how to setup the staging and
-	production environments.  Replace the `README.md` that you are currently
-	reading with `README.new.md`.  Edit that file to include the github uri's
-	for your new repo.
-
-4) Edit `bin/ubuntu-setup.sh`, in the places indicated -- Look for "TODO"
-	comments.  This script is used to set up the staging and production
-	environments (on ubuntu boxes).
+4) Turn `bin/ubuntu-setup.sh` into a setup script that configures a fresh
+	ubuntu box into a server for your new app.  Just make a few needed changes
+	in various places marked by "TODO"s.
 
 5) Edit `.env.dev` to reflect your project's name and your domain name.  There
 	are three versions of your domain name: 
@@ -28,23 +25,31 @@ of your new webapp.
     3. your staging domain name, which should be a subdomain of your production
 	   domain name, e.g. staging.example.com.
 
-6) Make a self-signed certificate issued to your development domain name.  If
-	you've edited `.env.dev`, then all you need to do is run
-	`bin/self-sign-cert.sh`.  Commit the three files generated inside
-	`<proj>/cert` to your project's repo.  You will need to force the commit
-	because .gitignore is configured to not track anythin uncer `<proj>/cert`.
-	The develpment certificate isn't sensitive.  But never commit a real
-	certificate for the production server to the repo (the certificate should be
-	revoked immediately if you do).
+# This has been moved to the developper's setup steps (in README.new.md)
+#6) Make a self-signed certificate issued to your development domain name.  If
+#	you've edited `.env.dev`, then all you need to do is run
+#	`bin/self-sign-cert.sh`.  Commit the three files generated inside
+#	`<proj>/cert` to your project's repo.  You will need to force the commit
+#	because .gitignore is configured to not track anythin uncer `<proj>/cert`.
+#	The develpment certificate isn't sensitive.  But never commit a real
+#	certificate for the production server to the repo (the certificate should be
+#	revoked immediately if you do).
 
-7) Fill in the needed info in `.keys.dev`.  You should get IDs and secrets for
-	communicating with Facebook, Twitter, and any other OAuth providers.  You
-	should obtain one set of credentials for your production server, and one set
-	for your development and stagin environments.  Both should be considered
-	sensitive, and not committed to the repo.  However, you will have to 
-	distribute the development credentials to your developers.  The production
-	credentials should only every be kept in encrypted form on
-	access-restricted systems.
+7) If your app will communicate with Facebook, Twitter, etc., then you'll need
+	to get tokens and secrets.  Generally, you'll need two sets of tokens and
+	keys: one for your production server, and one for your dev and staging
+	environments.   Put the development set in `.keys.dev`, but don't
+	commit them -- you'll need to share out the dev keys to your developpers
+	through some secure mechanism.  The production credentials should only
+	ever be kept in encrypted form on access-restricted systems.
 
-8) Next, follow the steps in `README.new.md` to setup a development, staging,
-	or production environment.
+8) Now that you've done the steps in this README, they won't need to be done
+	again by other developers who clone the repo.  Go ahead and replace this
+	README with the `README.new.md`:
+
+	$ mv README.new.md README.md
+
+	And follow the steps in the other README, which is the README that
+	developpers will refer to to set up their individual environments.
+
+
