@@ -6,7 +6,8 @@ let documentService = new CRUDService('/api/documents');
 let userService = new CRUDService('/api/users');
 userService.login = function(email, password) {
   return fetchJson(
-	'/auth/local/login', 'post', {email:email, password:password});
+	'/auth/local/login', 'post', {email:email, password:password
+  });
 }
 userService.signup = function(email, password) {
   return fetchJson(

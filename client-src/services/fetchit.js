@@ -1,4 +1,61 @@
 
+function fetchJson(url, method, params, options) {
+  options = prepare_options(method, params, options);
+  url = prepare_url_params(url, params, options);
+  return fetch(url, options).then(throwOrReturnJson)
+}
+
+function fetchit(url, method, params, options) {
+  options = prepare_options(method, params, options);
+  url = prepare_url_params(url, params, options);
+  return fetch(url, options);
+}
+
+function prepare_options(method, params, options) {
+  options = options || {};
+  options = apply_default_headers(options);
+  options = default_send_cookies(options);
+  options.method = method ? method.toLowerCase() : 'get';
+  options = prepare_body_params(params, options);
+  return options
+}
+
+function apply_default_headers(options){
+  if(typeof options.headers == 'undefined') {
+  	options.headers = HEADERS;
+  }
+  return options
+}
+
+function default_send_cookies(options) {
+  if(typeof options.credentials == 'undefined') {
+	options.credentials = 'same-origin';
+  }
+  return options
+}
+
+function prepare_body_params(params, options) {
+  if(typeof params == 'undefined') {
+	return options;
+  }
+  if(options.method == 'post' || options.method == 'put') {
+	options.body = JSON.stringify(params);
+  }
+  return options
+}
+
+function prepare_url_params(url, params, options) {
+  // If method is "get", "head", or "delete", encode any params onto  the url.
+  if(typeof params == 'undefined') {
+	  return url;
+  }
+  let method = options.method;
+  if(method == 'get' || method == 'head' || method == 'delete') {
+  	url = url + '?' + encode_query(params);
+  }
+  return url;
+}
+
 const esc = encodeURIComponent;
 function encode_query(query) {
   return Object.keys(query).map(k => esc(k) + '=' + esc(query[k])).join('&');
@@ -15,35 +72,5 @@ const HEADERS = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
 };
-
-function fetchJson(url, method, params) {
-	method = method.toLowerCase() || 'get';
-
-	// Handle methods that might incorporate data into the url
-	if(method == 'get' || method == 'head' || method == 'delete') {
-      if(params) {
-        url = url + '?' + encode_query(options.query);
-	  }
-      return fetch(url, {'method':method, 'headers':HEADERS})
-		  .then(throwOrReturnJson)
-
-    // Handle methods that send data in the body
-	} else if(method == 'post' || method == 'put') {
-	  return fetch(url, {
-		'method':method, 'headers':HEADERS, 'body':JSON.stringify(params)
-	  })
-	    .then(throwOrReturnJson)
-	}
-}
-
-function fetchit(url, options) {
-  let query = null;
-  options = options || {};
-  if(options.query) {
-    url = url + '?' + encode_query(options.query);
-    delete options.query;
-  }
-  return fetch(url, options);
-}
 
 export {fetchJson};

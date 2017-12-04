@@ -38,6 +38,7 @@ function prepare_router() {
 }
 
 function serve_client_app(req, res){
+  console.log('SERVE CLIENT APP:' + req.originalUrl + ': ' + req.session.user);
   let GLOBALS = {
     'FACEBOOK_APP_ID': process.env.FACEBOOK_APP_ID
   };

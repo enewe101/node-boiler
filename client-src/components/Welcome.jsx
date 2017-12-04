@@ -1,28 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Nav from './Nav.jsx';
 
 class Welcome extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  handleClickLogin = (e) => {
-	  console.log('Login!');
-	  this.props.history.push('/app/login');
-  }
-
-  handleClickSignup = (e) => {
-	  console.log('Signup!');
-	  this.props.history.push('/app/signup');
-  }
-
   render() {
-
     return (
-      <div>
-		<button onClick={this.handleClickLogin}>login</button>
-		<button onClick={this.handleClickSignup}>signup</button>
+	  <div>
+	    <Nav history={this.props.history} />
+        <h1>It works!</h1>
       </div>
     )
   }

@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Form, SchemaForm } from './Form';
-import {fetchJson} from '../services/fetchit';
 import {userService} from '../services/api';
-
+import Nav from './Nav.jsx'
 class Login extends React.Component {
 
   constructor(props) {
@@ -31,13 +30,16 @@ class Login extends React.Component {
 		  console.log('success');
 		  console.log(data);
 		  if(data.err) {
+			console.log('LOGIN: failed (1)')
 			this.setState({'success':false});
 		  } else {
 			//this.setState({'success':true});
-			this.props.history.push('/app/dash');
+			console.log('LOGIN: successfule (1)')
+			this.props.history.push('/app/documents');
 		  }
 	  })
 	  .catch(e => {
+		console.log('LOGIN: failed (2)')
         this.setState({'success':'server-error'})
       });
   }
@@ -46,7 +48,8 @@ class Login extends React.Component {
 
     return (
       <div>
-
+	    <Nav history={this.props.history} />
+		<h1>Login</h1>
         <div>email: {this.state.email}</div>
         <div>password: {this.state.password}</div>
 

@@ -10,14 +10,20 @@ const isLoggedIn = function(success, failure) {
 
 	// Defaults in case the `success` or `failure` callbacks are not defined.
 	success = success || function(req,res,next){next()};
-	failure = failure || function(req,res,next){res.send(403,'Forbidden')};
+	failure = failure || function(req,res,next){
+		res.status(403).send('Forbidden')
+	};
 
 	// This is the actual middleware function, with the `success` and `failure`
 	// callbacks bound.
 	return function(req, res, next) {
-		if(req.session.user) {
+		console.log('Checking if logged in...');
+		console.log(req.session.Auth);
+		if(req.session.Auth) {
+			console.log('OK, logged in!')
 			success(req, res, next);
 		} else {
+			console.log('Not logged in!')
 			failure(req, res, next);
 		}
 	};

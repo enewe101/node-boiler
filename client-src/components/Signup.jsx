@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Form, SchemaForm } from './Form';
-import {fetchJson} from '../services/fetchit';
 import {userService} from '../services/api';
+import Nav from './Nav.jsx'
 
 class Signup extends React.Component {
 
@@ -37,10 +37,10 @@ class Signup extends React.Component {
 
     return (
       <div>
-
+	    <Nav history={this.props.history} />
+		<h1>Signup</h1>
         <div>email: {this.state.email}</div>
         <div>password: {this.state.password}</div>
-
 		{ this.state.success === false && <div>email taken</div> }
 		{ this.state.success === true && <div>OK!</div> }
         <Form onSubmit={this.handleSubmit} scope={this}>
@@ -48,7 +48,6 @@ class Signup extends React.Component {
           <input name="password" type="text" />
 		  <input type="submit" />
         </Form>
-
       </div>
     )
   }

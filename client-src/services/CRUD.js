@@ -30,7 +30,7 @@ class CRUDService {
 
   find(query, options) {
     options = options || {};
-    return fetchJson(this.endpoint + 'find', 'post', [query, options])
+    return fetchJson(this.endpoint + 'find', 'post', query, options)
   }
 
   create(obj) {

@@ -46,11 +46,12 @@ function setup_most_middleware(app) {
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({extended: true}))
 	app.use(logger({ path: "log/express.log"}));
-	app.use(cookieParser());
+	app.use(cookieParser('very secret'));
 	app.use(session({
-		secret: "very secret",
 	   	resave: false,
-	   	saveUninitialized: true
+	   	saveUninitialized: true,
+		secret: "very secret",
+		cookie: {'secure': false}
 	}));
 	app.use(function(req, res, next) {
 	  res.locals.session = req.session;

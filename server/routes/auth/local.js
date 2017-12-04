@@ -12,26 +12,32 @@ function prepare_router() {
 
 
 function processLoginAttempt(req, res) {
-  console.log(req.body);
+
   User.findOne({'email':req.body.email})
 	.then(user => {
 	  if(!user) {
+		console.log('Processing login: user not found')
 	    res.json({'err':'bad-credentials', 'email':null});
       }
 	  else if(user.checkPassword(req.body.password)) {
 		// Successful authentication!  Put the user onto the session
-		req.session.user = user;
+		console.log('Processing login. User: ' + user)
+		req.session.Auth = user;
+		req.session.save()
         res.json({'err':null, 'email':user.email});
 
 	  } else {
+		console.log('Processing login: bad password')
 	    res.json({'err':'bad-credentials', 'email':null});
 	  }
     })
     .catch(err => {
+		console.log('Processing login: error')
         console.log(err);
         res.status(500).send('error');
 	})
 }
+
 
 function signup(req, res) {
   console.log(req.body);
