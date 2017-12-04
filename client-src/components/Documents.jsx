@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {documentService} from '../services/api'
-import { Form, SchemaForm } from './Form'
-import fetchit from '../services/fetchit'
-import Nav from './Nav.jsx'
-
+import {documentService} from '../services/api';
+import { Form, SchemaForm } from './Form';
+import fetchit from '../services/fetchit';
+import Nav from './Nav.jsx';
+import styles from './documents.css';
 
 class Documents extends React.Component {
 
@@ -55,7 +55,7 @@ class Documents extends React.Component {
 
 	let documents = this.state.documents.map((doc, i) => {
 	  return (
-        <div key={i}>
+        <div className={styles.document} key={i}>
 			Document
 			<div>{doc.platformId}</div>
 			<div>{doc.text}</div>

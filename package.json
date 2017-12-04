@@ -1,12 +1,12 @@
 {
-  "name": "how_far_hr",
+  "name": "aventa-labeller",
   "version": "1.1.0",
   "engines": {
     "node": "5.12.0"
   },
-  "description": "A small toy app showing HR progress with React and ES6",
-  "author": "Jon Deng <jondeng.com>",
-  "license": "MIT",
+  "description": "App for manually labelling data.",
+  "author": "Edward",
+  "license": "Mine",
   "private": false,
   "scripts": {
     "dev-start": "NODE_ENV=develpment node server/app.js",
@@ -42,7 +42,12 @@
     "util-inspect": "^0.1.8",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.3",
-    "webpack-hot-middleware": "^2.12.2"
+    "webpack-hot-middleware": "^2.12.2",
+    "extract-text-webpack-plugin": "^0.8.1",
+    "style-loader": "^0.12.3",
+    "css-loader": "^0.15.1",
+    "postcss-loader": "^0.4.3",
+    "autoprefixer-core": "^5.1.11"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
