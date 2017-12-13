@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const inspect = require('util-inspect');
 
-let configs = {'APP_ROOT': '/app/client-build'};
+let configs = {'APP_ROOT': '/app/client'};
 
 function configure_app() {
 

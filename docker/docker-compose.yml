@@ -16,6 +16,7 @@ services:
       - FACEBOOK_APP_SECRET
       - INSTAGRAM_CLIENT_ID
       - INSTAGRAM_CLIENT_SECRET
+      - NODE_PORT
     build:
       context: ../
       dockerfile: docker/node-dockerfile
@@ -23,29 +24,10 @@ services:
         - NODE_ENV
         - USE_SSL
         - HOST
+        - NODE_PORT
     ports:
-      - 80:80
-      - 443:443
-    links:
-      - mongodb
+      - ${NODE_PORT}:${NODE_PORT}
     image: 'node:1'
     volumes:
       - ${APP_VOLUME_MAPPING}
-      - ../../letsencrypt:/etc/letsencrypt
-
-  mongodb:
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD
-      - APP_DB_USER
-      - APP_DB_PASS
-    build:
-      context: ../
-      dockerfile: docker/mongo-dockerfile
-    ports:
-      - 27017:27017
-    volumes:
-      - ../mongodata:/data/db
-      - ../bin/mongo-entrypoint/:/docker-entrypoint-initdb.d/
-    image: 'mongodb:1'
 
