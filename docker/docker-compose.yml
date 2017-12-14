@@ -6,7 +6,6 @@ services:
       - APP_DB_USER
       - APP_DB_PASS
       - NODE_ENV
-      - USE_SSL
       - HOST
       - TWITTER_CONSUMER_KEY
       - TWITTER_CONSUMER_SECRET
@@ -17,6 +16,9 @@ services:
       - INSTAGRAM_CLIENT_ID
       - INSTAGRAM_CLIENT_SECRET
       - NODE_PORT
+      - DB_NAME
+      - MONGO_HOST
+      - MONGO_PORT
     build:
       context: ../
       dockerfile: docker/node-dockerfile

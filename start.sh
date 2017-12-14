@@ -79,6 +79,7 @@ for var in "$ARGS"; do
     fi
 done
 
+
 # Now call docker-compose, and pass through all the arguments
 echo 'starting dockers...'
-docker-compose -p mern -f docker/docker-compose.yml up $ARGS 2> .build-err
+docker-compose -p my -f docker/docker-compose.yml up $ARGS 2> .build-err
