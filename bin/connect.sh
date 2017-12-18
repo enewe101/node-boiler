@@ -1,1 +1,1 @@
-docker exec -it mern_node_1 bash
+docker exec -it my_node_1 bash

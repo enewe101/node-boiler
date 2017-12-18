@@ -9,7 +9,11 @@ if(process.env.MONGO_HOST) {
 		'mongodb://'+auth_string+'@'+host_string+'/'+process.env.DB_NAME
 	);
 	console.log(mongo_connect_url);
-	mongoose.connect(mongo_connect_url);
+	const mongoose_options = {server: {socketOptions: {
+      socketTimeoutMS: 10000,
+      connectTimeoutMS: 10000
+	}}};
+	mongoose.connect(mongo_connect_url, mongoose_options);
 }
 
 module.exports = mongoose;

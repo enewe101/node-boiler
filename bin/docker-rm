@@ -1,4 +1,4 @@
 #!/bin/sh
-docker kill my_node_1 mern_mongodb_1
-docker rm my_node_1 mern_mongodb_1
+docker kill my_node_1
+docker rm my_node_1
 docker rmi node:1
