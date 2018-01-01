@@ -37,7 +37,7 @@
     "react-dom": "^15.3.2",
     "react-hot-loader": "^3.0.0-beta.5",
     "react-router-dom": "^4.1.2",
-    "redux": "^3.6.0",
+    "redux": "3.5.2",
     "underscore": "^1.8.3",
     "util-inspect": "^0.1.8",
     "webpack": "^1.13.2",
@@ -47,10 +47,16 @@
     "style-loader": "^0.12.3",
     "css-loader": "^0.15.1",
     "postcss-loader": "^0.4.3",
-    "autoprefixer-core": "^5.1.11"
+    "autoprefixer-core": "^5.1.11",
+    "react-redux": "4.4.5",
+    "react-router-redux": "4.0.5",
+    "redux-thunk": "2.1.0"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "connect-history-api-fallback": "1.2.0",
+    "react-addons-test-utils": "15.3.0",
+    "redux-immutable-state-invariant": "1.2.3"
   }
 }

@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import {documentService} from '../services/api';
 import { Form, SchemaForm } from './Form';
 import fetchit from '../services/fetchit';
-import Nav from './Nav.jsx';
 import styles from './documents.css';
+import { connect } from 'react-redux';
+import * as documentActions from '../actions/documentActions';
+
 
 class Documents extends React.Component {
 
@@ -12,23 +14,12 @@ class Documents extends React.Component {
     super(props);
 
     let blankDocument = {
-	  platformId: '',   // Id for doc on original platform
-	  text: '',       
 	  title: '',
-	  platform: '',
-	  publishedAt: '',    // When doc was published on original platform
-	  createdAt: '', // When doc was added to this app
-	  author: '', // Reference to author by platform Id
-	  hearts: '',       // favourites, likes
-	  shares: '',       // shares, retweets
-	  score: '',        // karma
-	  replies: [],  // replies, by platform Id
-	  inReplyTo: '',  // parent's platform Id (if reply)
+	  body: ''
 	};
 
     this.state = {
-      'deeper':{'document':blankDocument, 'test':'yo'},
-      'documents': []
+      'document': blankDocument,
     }
   }
 
@@ -44,37 +35,28 @@ class Documents extends React.Component {
 	  })
   }
 
-  postDoc = (e) => {
-    e.preventDefault();
-    console.log('sending document');
-    console.log(this.state.deeper.document);
-    documentService.create(this.state.deeper.document);
+  handleSubmit = e => {
+	  e.preventDefault();
+	  console.log(JSON.stringify(this.state));
+	  console.log(JSON.stringify(this.props));
+	  this.props.createDocument(this.state.document);
+  //  documentService.create(this.state.deeper.document);
   }
 
   render() {
 
-	let documents = this.state.documents.map((doc, i) => {
+	let documents = this.props.documents.map((doc, i) => {
 	  return (
         <div className={styles.document} key={i}>
 			Document
-			<div>{doc.platformId}</div>
-			<div>{doc.text}</div>
 			<div>{doc.title}</div>
-			<div>{doc.platform}</div>
-			<div>{doc.publishedAt}</div>
-			<div>{doc.createdAt}</div>
-			<div>{doc.author}</div>
-			<div>{doc.shares}</div>
-			<div>{doc.score}</div>
-			<div>{doc.replies}</div>
-			<div>{doc.inReplyTo}</div>
+			<div>{doc.body}</div>
         </div>
       );
 	});
 
     return (
       <div>
-	    <Nav history={this.props.history} />
         <h1>Documents</h1>
 
         <ul>
@@ -85,13 +67,15 @@ class Documents extends React.Component {
           </li>
         </ul>
 
-        <Form path="deeper.document" scope={this}>
-          <input name="text" type="text" />
-        </Form>
+		{/*<Form onSubmit={this.handleSubmit} path="document" scope={this}>
+          <input name="title" type="text" />
+		  <input name="body" type="text" />
+		  <input type="submit" />
+        </Form>*/}
 
-        <SchemaForm key="" path="deeper.document" scope={this} 
-          schema={this.state.deeper.document}>
-          <input type="submit" onClick={this.postDoc} />
+		<SchemaForm onSubmit={this.handleSubmit} key="" path="document" 
+		  scope={this} schema={this.state.document} >
+          <input type="submit"/>
         </SchemaForm>
 
 		{documents}
@@ -102,5 +86,14 @@ class Documents extends React.Component {
 
 }
 
+const mapStateToProps = (state, ownProps) => {
+	return {'documents': state.documents}
+}
 
-export default Documents;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		createDocument: doc => dispatch(documentActions.createDocument(doc))
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Documents);

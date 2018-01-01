@@ -141,7 +141,7 @@ export class SchemaForm extends Form {
     });
 
     return (
-      <form>
+      <form onSubmit={this.props.onSubmit}>
         {children}
         {this.props.children}
       </form>

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fetchit from '../services/fetchit'
-import Nav from './Nav.jsx'
 
 
 class Twitter extends React.Component {
@@ -34,7 +33,6 @@ class Twitter extends React.Component {
   render() {
     return (
       <div>
-	    <Nav history={this.props.history} />
         <h1>Twitter Integration Test</h1>
 		<p>
 		  To enable twitter integration obtain credentials and

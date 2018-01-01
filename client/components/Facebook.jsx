@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 let facebookUserStatusService = {getUserStatus: function(){}};
-import Nav from './Nav.jsx'
 //import facebookUserStatusService from '../services/facebookUserStatusService';
 
 
@@ -50,7 +49,6 @@ class Facebook extends React.Component {
 
     return (
       <div>
-	    <Nav history={this.props.history} />
         <h1>Facebook Integration Test</h1>
 		<p>
 		  To enable Facebook integration:

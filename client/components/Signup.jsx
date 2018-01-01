@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Form, SchemaForm } from './Form';
 import {userService} from '../services/api';
-import Nav from './Nav.jsx'
 
 class Signup extends React.Component {
 
@@ -37,7 +36,6 @@ class Signup extends React.Component {
 
     return (
       <div>
-	    <Nav history={this.props.history} />
 		<h1>Signup</h1>
         <div>email: {this.state.email}</div>
         <div>password: {this.state.password}</div>

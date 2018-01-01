@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Nav from './Nav.jsx'
 
 
 class Instagram extends React.Component {
@@ -24,7 +23,6 @@ class Instagram extends React.Component {
   render() {
     return (
       <div>
-	    <Nav history={this.props.history} />
         <h1>Instagram Auth</h1>
 		<p>
 		  To enable Instagram integration, obtain credentials and place them
