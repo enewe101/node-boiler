@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {documentService} from '../services/api';
 import { Form, SchemaForm } from './Form';
+import Doc from './Doc.jsx';
 import fetchit from '../services/fetchit';
 import styles from './documents.css';
 import { connect } from 'react-redux';
-import * as documentActions from '../actions/documentActions';
-
+import actions from '../actions';
 
 class Documents extends React.Component {
 
@@ -37,22 +37,17 @@ class Documents extends React.Component {
 
   handleSubmit = e => {
 	  e.preventDefault();
-	  console.log(JSON.stringify(this.state));
-	  console.log(JSON.stringify(this.props));
 	  this.props.createDocument(this.state.document);
-  //  documentService.create(this.state.deeper.document);
   }
 
   render() {
 
 	let documents = this.props.documents.map((doc, i) => {
-	  return (
-        <div className={styles.document} key={i}>
-			Document
-			<div>{doc.title}</div>
-			<div>{doc.body}</div>
-        </div>
-      );
+	  return <Doc {...doc} key={i} />;
+	});
+
+	let pendingDocuments = this.props.pendingDocuments.map((doc, i) => {
+	  return <Doc pending={true} {...doc} key={i} />;
 	});
 
     return (
@@ -79,20 +74,25 @@ class Documents extends React.Component {
         </SchemaForm>
 
 		{documents}
+		{pendingDocuments}
 
       </div>
     )
   }
-
 }
 
 const mapStateToProps = (state, ownProps) => {
-	return {'documents': state.documents}
+	return {
+		'documents': state.documents,
+		'pendingDocuments': state.pendingDocuments
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		createDocument: doc => dispatch(documentActions.createDocument(doc))
+		createDocument: doc => {
+			return dispatch({'type':actions.ADD_DOC_START_MOCK, 'document':doc})
+		}
 	};
 }
 

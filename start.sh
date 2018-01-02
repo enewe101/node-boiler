@@ -82,4 +82,4 @@ done
 
 # Now call docker-compose, and pass through all the arguments
 echo 'starting dockers...'
-docker-compose -p my -f docker/docker-compose.yml up $ARGS 2> .build-err
+docker-compose -p $DOCKER_NAME -f docker/docker-compose.yml up $ARGS 2> .build-err

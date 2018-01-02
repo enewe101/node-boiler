@@ -29,7 +29,7 @@ services:
         - NODE_PORT
     ports:
       - ${NODE_PORT}:${NODE_PORT}
-    image: 'node:1'
+    image: ${DOCKER_NAME}:1
     volumes:
       - ${APP_VOLUME_MAPPING}
 

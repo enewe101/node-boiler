@@ -2,7 +2,6 @@ import {CRUDService} from './CRUD';
 import {fetchJson} from './fetchit';
 
 let documentService = new CRUDService('/api/documents');
-
 let userService = new CRUDService('/api/users');
 userService.login = function(email, password) {
   return fetchJson(

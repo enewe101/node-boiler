@@ -1,3 +1,7 @@
 .document {
 	border: solid 3px black;
 }
+
+.pendingDocument {
+	border: solid 3px orange;
+}

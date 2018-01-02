@@ -12,10 +12,17 @@ import Welcome from './components/Welcome.jsx';
 import Signup from './components/Signup.jsx';
 import App from './components/App.jsx';
 
-import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
-const store = configureStore();
 
+// Setup redux and saga
+import "regenerator-runtime/runtime";
+import { Provider } from 'react-redux';
+import {createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './sagas/index';
+import rootReducer from './reducers';
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga)
 
 
 // Note: '/' gets redirected to '/app'

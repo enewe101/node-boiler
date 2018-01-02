@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import documents from './documentReducers';
+import { documentReducer, pendingDocumentReducer } from './documentReducers';
 
 export default combineReducers({
-	'documents': documents
+	'documents': documentReducer,
+	'pendingDocuments': pendingDocumentReducer
 });
