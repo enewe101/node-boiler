@@ -1,3 +1,6 @@
+[] Check that CSRF protection measures are implemented
+[] Are cookies being sent with AJAX requests?
+
 Right now I can't include mongoose schemas into the sever (they are defined on
 the server).  It would be useful to be able to do so for creating forms.
 - Instead I'm using a POJO that mirrors the schema, but that's not DRY
