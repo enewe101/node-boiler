@@ -1,6 +1,7 @@
 "use strict";
 
 const User = require('./models/User.js');
+const config = require('../appConstants.js');
 
 // This function produces a middleware checking that the user has been
 // authenticated.  Note that this function is not itself middleware, but needs
@@ -14,6 +15,13 @@ const isLoggedIn = function(success, failure) {
 		res.status(403).send('Forbidden')
 	};
 
+	// If authentication enforcement is switched off, all requests are passed
+	// through as if authenticated.
+	if(config.bypassAuthentication) {
+		console.log('yo');
+		return function(req, res, next){next();};
+	}
+	
 	// This is the actual middleware function, with the `success` and `failure`
 	// callbacks bound.
 	return function(req, res, next) {
